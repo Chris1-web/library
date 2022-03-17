@@ -3,3 +3,113 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --primary-color: #511ea4;
+  --color-white: #fff;
+  --color-danger: #8a0000;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Hubballi", cursive;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  max-width: 126rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 0.5fr 2.5fr;
+}
+
+.add-a-new-book-form {
+  display: none;
+}
+
+.book-information {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.form {
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form > input,
+.form > select {
+  padding: 1rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+  padding: 2rem;
+}
+
+.add-btn > button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cards {
+  display: grid;
+  width: 90%;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  border-left: 0.2rem solid blue;
+  height: 18rem;
+  box-shadow: 0 0 0.5rem 0.4rem rgb(0 0 0 / 6%);
+  border-radius: 2rem;
+  padding: 2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease-out;
+}
+
+.card:hover {
+  border-left: none;
+  box-shadow: 2rem 0.5rem 0.5rem 0.5rem rgba(5, 5, 5, 0.06);
+  border-bottom: 0.4rem solid blue;
+}
+
+.card-button {
+  display: flex;
+  gap: 1rem;
+}
+
+.card h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 1.5rem;
+}
+
+.card-button button {
+  padding: 1rem 2.5rem;
+  /* border: 2px solid var(--primary-color); */
+  border: none;
+  /* background-color: var(--color-white); */
+  border-radius: 2rem;
+  /* color: var(--color-danger); */
+}
