@@ -23,6 +23,15 @@ button {
   cursor: pointer;
 }
 
+body {
+  position: relative;
+}
+
+legend {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .container {
   max-width: 126rem;
   margin: 0 auto;
@@ -30,13 +39,38 @@ button {
   grid-template-rows: 0.5fr 2.5fr;
 }
 
+.book-information {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .add-a-new-book-form {
   display: none;
 }
 
-.book-information {
-  max-width: 50%;
-  margin: 0 auto;
+.add-a-new-book-form.open {
+  display: block;
+  position: absolute;
+  top: 10%;
+  right: 50%;
+  transform: translateX(50%);
+  border: 2px solid black;
+  padding: 2rem;
+  width: 50vw;
+}
+
+.open-form {
+  position: relative;
+  transition: all 0.5s;
+}
+
+.open-form.open {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.973);
 }
 
 .form {
@@ -48,6 +82,32 @@ button {
 .form > input,
 .form > select {
   padding: 1rem;
+  border-radius: 2rem;
+  border: 0.1rem solid grey;
+  outline: none;
+  /* max-height: 1rem; */
+}
+
+.form-submit-btn {
+  padding: 1rem 2rem 1rem 1rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: var(--primary-color);
+  color: var(--color-white);
+}
+
+.top-layer-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.closeBtn {
+  display: block;
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: var(--color-danger);
+  color: var(--color-white);
 }
 
 .nav {
@@ -107,9 +167,6 @@ button {
 
 .card-button button {
   padding: 1rem 2.5rem;
-  /* border: 2px solid var(--primary-color); */
   border: none;
-  /* background-color: var(--color-white); */
   border-radius: 2rem;
-  /* color: var(--color-danger); */
 }

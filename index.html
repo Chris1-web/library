@@ -12,9 +12,13 @@
     <title>Personal Library</title>
   </head>
   <body>
+    <div class="open-form"></div>
       <div class="add-a-new-book-form">
         <form action="#" method="#" class="book-information">
+          <div class="top-layer-form">
             <legend>Add a New Book</legend>
+            <button class="closeBtn">x</button>
+          </div>
             <div class="form">
               <label for="title">Title:</label>
               <input type="text" id="title" name="title" placeholder="Title" />
@@ -45,7 +49,7 @@
               </select>
             </div>
             <div class="form">
-              <button type="submit"></button>
+              <button type="submit" class="form-submit-btn">Submit</button>
             </div>
         </form>
       </div>
