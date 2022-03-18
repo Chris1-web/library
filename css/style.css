@@ -35,8 +35,8 @@ legend {
 .container {
   max-width: 126rem;
   margin: 0 auto;
-  display: grid;
-  grid-template-rows: 0.5fr 2.5fr;
+  /* display: grid; */
+  /* grid-template-rows: 0.5fr 2.5fr; */
 }
 
 .book-information {
