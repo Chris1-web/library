@@ -8,6 +8,7 @@ const bookAuthor = document.querySelector("#author");
 const bookNumber = document.querySelector("#number-of-pages");
 const bookStatus = document.querySelector("#status");
 const allCards = document.querySelector(".cards");
+let book;
 
 const showAddNewBookForm = () => {
   overlay.classList.toggle("open");
@@ -25,6 +26,16 @@ const Book = function (title, author, pagesNum, hasRead) {
   this.hasRead = hasRead;
 };
 
+Book.prototype.changeStatus = function (e) {
+  if (this.hasRead === "Yes") {
+    e.target.textContent = "Not Yet";
+    this.hasRead = "No";
+  } else {
+    e.target.textContent = "Read";
+    this.hasRead = "Yes";
+  }
+};
+
 let myLibrary = [];
 
 form.addEventListener("submit", (e) => {
@@ -33,13 +44,14 @@ form.addEventListener("submit", (e) => {
   let author = bookAuthor.value;
   let pages = bookNumber.value;
   let status = bookStatus.value;
-  const book = new Book(title, author, pages, status);
+  book = new Book(title, author, pages, status);
   addBookToLibrary(book);
   createCard(book);
   clearForm();
   showAddNewBookForm();
 });
 
+// clear form on submit
 const clearForm = () => {
   bookTitle.value = "";
   bookAuthor.value = "";
@@ -74,23 +86,26 @@ const createCard = (book) => {
   divContainer.append(cardHeader, paragraph, buttonDivContainer);
 };
 
-const toggleRead = (e) => {
-  if (e.target.textContent === "Read") e.target.textContent = "Not Yet";
-  else e.target.textContent = "Read";
+const getCurrentCardTitle = function (e) {
+  const cardTitleText = e.target.closest(".card").firstElementChild.textContent;
+  return cardTitleText;
+};
+
+const getCurrentCardAuthor = function (e) {
+  const cardAuthorText =
+    e.target.closest(".card").firstElementChild.nextElementSibling.textContent;
+  return cardAuthorText;
 };
 
 const removeBook = (e) => {
-  // get current clicked card name and author and filter it out of the remaining library content
-  const cardTitleText = e.target.closest(".card").firstElementChild.textContent;
-  const cardAuthorText =
-    e.target.closest(".card").firstElementChild.nextElementSibling.textContent;
-  e.target.textContent = "Removed";
-  //  get the cards index
-  const selectedCardIndex = myLibrary.findIndex((book) => {
-    return book.title === cardTitleText && book.author === cardAuthorText;
+  // get current clicked card name and author and find its index in the myLibrary array
+  const curTitle = getCurrentCardTitle(e);
+  const curAuthor = getCurrentCardAuthor(e);
+  const getCardIndex = myLibrary.findIndex((book) => {
+    return book.title === curTitle && book.author === curAuthor;
   });
   // remove the card permernently from MyLibrary array
-  myLibrary.splice(selectedCardIndex);
+  myLibrary.splice(getCardIndex);
   e.target.closest(".card").remove();
 };
 
@@ -98,7 +113,12 @@ const removeBook = (e) => {
 allCards.addEventListener("click", (e) => {
   // if it is book status button,toggle text content
   if (e.target.classList.contains("readBtn")) {
-    toggleRead(e);
+    const currentTitle = getCurrentCardTitle(e);
+    const currentAuthor = getCurrentCardAuthor(e);
+    const currentBook = myLibrary.filter(function (curBook) {
+      return curBook.title === currentTitle && curBook.author === currentAuthor;
+    });
+    currentBook[0].changeStatus(e);
     return;
   }
   //else if it is remove button, remove card element
