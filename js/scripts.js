@@ -9,7 +9,7 @@ const bookNumber = document.querySelector("#number-of-pages");
 const bookStatus = document.querySelector("#status");
 const allCards = document.querySelector(".cards");
 
-const showAddNewBookForm = function () {
+const showAddNewBookForm = () => {
   overlay.classList.toggle("open");
   newBookForm.classList.toggle("open");
 };
@@ -27,7 +27,7 @@ const Book = function (title, author, pagesNum, hasRead) {
 
 let myLibrary = [];
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   let title = bookTitle.value;
   let author = bookAuthor.value;
@@ -40,17 +40,17 @@ form.addEventListener("submit", function (e) {
   showAddNewBookForm();
 });
 
-const clearForm = function () {
+const clearForm = () => {
   bookTitle.value = "";
   bookAuthor.value = "";
   bookNumber.value = "";
 };
 
-const addBookToLibrary = function (book) {
+const addBookToLibrary = (book) => {
   myLibrary.push(book);
 };
 
-const createCard = function (book) {
+const createCard = (book) => {
   const cardsContainer = document.querySelector(".cards");
   const divContainer = document.createElement("div");
   divContainer.classList.add("card");
@@ -74,12 +74,12 @@ const createCard = function (book) {
   divContainer.append(cardHeader, paragraph, buttonDivContainer);
 };
 
-const toggleRead = function (e) {
+const toggleRead = (e) => {
   if (e.target.textContent === "Read") e.target.textContent = "Not Yet";
   else e.target.textContent = "Read";
 };
 
-const removeBook = function (e) {
+const removeBook = (e) => {
   // get current clicked card name and author and filter it out of the remaining library content
   const cardTitleText = e.target.closest(".card").firstElementChild.textContent;
   const cardAuthorText =
@@ -95,7 +95,7 @@ const removeBook = function (e) {
 };
 
 // if card element is clicked
-allCards.addEventListener("click", function (e) {
+allCards.addEventListener("click", (e) => {
   // if it is book status button,toggle text content
   if (e.target.classList.contains("readBtn")) {
     toggleRead(e);
