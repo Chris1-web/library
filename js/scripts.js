@@ -19,22 +19,24 @@ overlay.addEventListener("click", showAddNewBookForm);
 closeBtn.addEventListener("click", showAddNewBookForm);
 newBookBtn.addEventListener("click", showAddNewBookForm);
 
-const Book = function (title, author, pagesNum, hasRead) {
-  this.title = title;
-  this.author = author;
-  this.pagesNum = pagesNum;
-  this.hasRead = hasRead;
-};
-
-Book.prototype.changeStatus = function (e) {
-  if (this.hasRead === "Yes") {
-    e.target.textContent = "Not Yet";
-    this.hasRead = "No";
-  } else {
-    e.target.textContent = "Read";
-    this.hasRead = "Yes";
+class Book {
+  constructor(title, author, pagesNum, hasRead) {
+    this.title = title;
+    this.author = author;
+    this.pagesNum = pagesNum;
+    this.hasRead = hasRead;
   }
-};
+
+  changeStatus(e) {
+    if (this.hasRead === "Yes") {
+      e.target.textContent = "Not Yet";
+      this.hasRead = "No";
+    } else {
+      e.target.textContent = "Read";
+      this.hasRead = "Yes";
+    }
+  }
+}
 
 let myLibrary = [];
 
