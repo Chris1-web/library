@@ -53,9 +53,7 @@ legend {
 .add-a-new-book-form.open {
   display: block;
   position: absolute;
-  top: 10%;
-  right: 50%;
-  transform: translateX(50%);
+  transform: translate(50%, 50%);
   border: 2px solid var(--secondary-color);
   border-radius: 2rem;
   padding: 2rem;

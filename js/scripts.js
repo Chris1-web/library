@@ -48,7 +48,8 @@ form.addEventListener("submit", (e) => {
   let status = bookStatus.value;
   book = new Book(title, author, pages, status);
   addBookToLibrary(book);
-  createCard(book);
+  displayCard(e);
+  // createCard(book);
   clearForm();
   showAddNewBookForm();
 });
@@ -64,28 +65,23 @@ const addBookToLibrary = (book) => {
   myLibrary.push(book);
 };
 
-const createCard = (book) => {
+const displayCard = function (e) {
   const cardsContainer = document.querySelector(".cards");
-  const divContainer = document.createElement("div");
-  divContainer.classList.add("card");
-  cardsContainer.appendChild(divContainer);
-  const cardHeader = document.createElement("h1");
-  cardHeader.style.textAlign = "center";
-  cardHeader.textContent = book.title;
-  cardHeader.classList.add("card-title");
-  const paragraph = document.createElement("p");
-  paragraph.textContent = book.author;
-  paragraph.classList.add("card-author");
-  const buttonDivContainer = document.createElement("div");
-  buttonDivContainer.classList.add("card-button");
-  const ReadBtn = document.createElement("button");
-  ReadBtn.classList.add("readBtn");
-  ReadBtn.textContent = `${book.hasRead === "Yes" ? "Read" : "Not Yet"}`;
-  const RemoveBtn = document.createElement("button");
-  RemoveBtn.textContent = "Remove";
-  RemoveBtn.classList.add("removeBtn");
-  buttonDivContainer.append(ReadBtn, RemoveBtn);
-  divContainer.append(cardHeader, paragraph, buttonDivContainer);
+  myLibrary.forEach(function (book) {
+    const html = ` 
+      <div class="card">
+        <h1 class="card-title">${book.title}</h1>
+        <p class="card-author">${book.author}</p>
+        <div class="card-button">
+          <button class="readBtn">${
+            book.hasRead === "Yes" ? "Read" : "Not Yet"
+          }</button>
+          <button class="removeBtn">Remove</button>
+        </div>
+      </div>
+    `;
+    cardsContainer.insertAdjacentHTML("beforeend", html);
+  });
 };
 
 const getCurrentCardTitle = function (e) {
