@@ -49,7 +49,6 @@ form.addEventListener("submit", (e) => {
   book = new Book(title, author, pages, status);
   addBookToLibrary(book);
   displayCard(e);
-  // createCard(book);
   clearForm();
   showAddNewBookForm();
 });
@@ -67,6 +66,9 @@ const addBookToLibrary = (book) => {
 
 const displayCard = function (e) {
   const cardsContainer = document.querySelector(".cards");
+  // clear current cards
+  cardsContainer.textContent = "";
+  // display card from library array
   myLibrary.forEach(function (book) {
     const html = ` 
       <div class="card">
