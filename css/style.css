@@ -36,8 +36,6 @@ legend {
 .container {
   max-width: 126rem;
   margin: 0 auto;
-  /* display: grid; */
-  /* grid-template-rows: 0.5fr 2.5fr; */
 }
 
 .book-information {
@@ -85,7 +83,12 @@ legend {
   border-radius: 2rem;
   border: 0.1rem solid #b6b6f8;
   outline: none;
-  /* max-height: 1rem; */
+}
+
+.form > span {
+  color: var(--color-danger);
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .form-submit-btn,
@@ -184,4 +187,13 @@ legend {
   padding: 1rem 2.5rem;
   border: none;
   border-radius: 2rem;
+}
+
+input:focus {
+  background-color: var(--secondary-color);
+  color: black;
+}
+
+::placeholder {
+  color: black;
 }

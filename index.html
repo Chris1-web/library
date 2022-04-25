@@ -14,14 +14,15 @@
   <body>
     <div class="open-form"></div>
       <div class="add-a-new-book-form">
-        <form action="#" method="#" class="book-information">
+        <form action="#" method="#" class="book-information" novalidate>
           <div class="top-layer-form">
             <legend>Add a New Book</legend>
             <button class="closeBtn" type="button">x</button>
           </div>
             <div class="form">
               <label for="title">Title:</label>
-              <input type="text" id="title" name="title" placeholder="Title" required/>
+              <input type="text" id="title" name="title" placeholder="Title" maxlength="60" required/>
+              <span class="title-error error" aria-live="polite"></span>
             </div>
             <div class="form">
               <label for="author">Author:</label>
@@ -31,6 +32,7 @@
                 name="author"
                 placeholder="Author" required
               />
+              <span class="author-error error" aria-live="polite"></span>
             </div>
             <div class="form">
               <label for="number-of-pages">Number of pages:</label>
@@ -39,8 +41,10 @@
                 id="number-of-pages"
                 name="number-of-pages"
                 placeholder="Pages"
+                min="1"
                 required
               />
+              <span class="pages-error error" aria-live="polite"></span>
             </div>
             <div class="form">
               <label for="status">Have you read it?</label>
@@ -73,6 +77,8 @@
         </main>
       </div>
     </div>
+
   </body>
 </html>
+
 

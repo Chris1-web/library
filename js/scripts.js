@@ -40,7 +40,7 @@ class Book {
 
 let myLibrary = [];
 
-form.addEventListener("submit", (e) => {
+const submitLibrary = function (e) {
   e.preventDefault();
   let title = bookTitle.value;
   let author = bookAuthor.value;
@@ -48,10 +48,10 @@ form.addEventListener("submit", (e) => {
   let status = bookStatus.value;
   book = new Book(title, author, pages, status);
   addBookToLibrary(book);
-  displayCard(e);
+  displayCard();
   clearForm();
   showAddNewBookForm();
-});
+};
 
 // clear form on submit
 const clearForm = () => {
@@ -64,7 +64,7 @@ const addBookToLibrary = (book) => {
   myLibrary.push(book);
 };
 
-const displayCard = function (e) {
+const displayCard = function () {
   const cardsContainer = document.querySelector(".cards");
   // clear current cards
   cardsContainer.textContent = "";
@@ -126,3 +126,72 @@ allCards.addEventListener("click", (e) => {
     removeBook(e);
   } else return;
 });
+
+// Error
+const titleError = document.querySelector(".title-error");
+const authorError = document.querySelector(".author-error");
+const pagesError = document.querySelector(".pages-error");
+
+const clearAllErrorMessage = function () {
+  const errorsElement = document.querySelectorAll(".error");
+  errorsElement.forEach((element) => {
+    element.textContent = "";
+  });
+};
+
+// We validate data input based as it is being typed
+bookTitle.addEventListener("input", () => {
+  if (bookTitle.validity.valid) {
+    titleError.textContent = "Entered value needs to be a text";
+  } else {
+    showError(bookTitle, titleError);
+  }
+});
+
+bookAuthor.addEventListener("input", () => {
+  if (bookAuthor.validity.valid) {
+    authorError.textContent = "Entered value needs to be a text";
+  } else {
+    showError(bookAuthor, authorError);
+  }
+});
+
+bookNumber.addEventListener("input", () => {
+  if (bookTitle.validity.valid) {
+    pagesError.textContent = "Entered value needs to be a number";
+  } else {
+    showError(bookNumber, pagesError);
+  }
+});
+
+// form client side validation
+form.addEventListener("submit", (e) => {
+  // if any of the input's is not valid(does not satify all HTML written guides)
+  if (!bookTitle.validity.valid) {
+    showError(bookTitle, titleError);
+    e.preventDefault();
+    return;
+  } else if (!bookAuthor.validity.valid) {
+    showError(bookAuthor, authorError);
+    e.preventDefault();
+    return;
+  } else if (!bookNumber.validity.valid) {
+    showError(bookNumber, pagesError);
+    e.preventDefault();
+    return;
+  }
+  submitLibrary(e);
+  clearAllErrorMessage();
+});
+
+const showError = function (formInput, element) {
+  if (formInput.validity.valueMissing) {
+    element.textContent = "This field is required";
+  } else if (formInput.validity.typeMismatch) {
+    element.textContent = `This field is required`;
+  } else if (formInput.validity.tooLong) {
+    element.textContent = `${formInput.maxLength} characters are required; you entered ${formInput.value.length}`;
+  } else if (formInput.validity.rangeUnderflow) {
+    element.textContent = `${formInput.min} is the minimum number that can be entered`;
+  }
+};
