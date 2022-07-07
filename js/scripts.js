@@ -29,7 +29,7 @@ class Book {
 
   changeStatus(e) {
     if (this.hasRead === "Yes") {
-      e.target.textContent = "Not Yet";
+      e.target.textContent = "Not Read";
       this.hasRead = "No";
     } else {
       e.target.textContent = "Read";
@@ -76,7 +76,7 @@ const displayCard = function () {
         <p class="card-author">${book.author}</p>
         <div class="card-button">
           <button class="readBtn">${
-            book.hasRead === "Yes" ? "Read" : "Not Yet"
+            book.hasRead === "Yes" ? "Read" : "Not Read"
           }</button>
           <button class="removeBtn">Remove</button>
         </div>

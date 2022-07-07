@@ -9,6 +9,8 @@
   --color-white: #fff;
   --color-danger: #8a0000;
   --secondary-color: #e6e6fa;
+  --color-grey: #f0eef1c3;
+  --color-black: #000;
 }
 
 html {
@@ -26,10 +28,11 @@ button {
 
 body {
   position: relative;
+  background-color: var(--color-grey);
 }
 
 legend {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
@@ -51,11 +54,12 @@ legend {
 .add-a-new-book-form.open {
   display: block;
   position: absolute;
-  transform: translate(50%, 50%);
+  left: 20%;
+  transform: translate(50%, 35%);
   border: 2px solid var(--secondary-color);
   border-radius: 2rem;
   padding: 2rem;
-  width: 50vw;
+  width: 30vw;
 }
 
 .open-form {
@@ -83,6 +87,7 @@ legend {
   border-radius: 2rem;
   border: 0.1rem solid #b6b6f8;
   outline: none;
+  font-size: 1.7rem;
 }
 
 .form > span {
@@ -91,8 +96,7 @@ legend {
   font-weight: bold;
 }
 
-.form-submit-btn,
-.add-btn > button {
+.form-submit-btn {
   padding: 1rem 2rem 1rem 1rem;
   border: none;
   border-radius: 2rem;
@@ -126,33 +130,49 @@ legend {
   align-items: center;
   font-size: 3rem;
   padding: 2rem;
-  border-bottom: 2px solid var(--secondary-color);
+  background-color: white;
+  border-bottom: 5px solid var(--secondary-color);
+}
+
+.login-btn > button {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: var(--primary-color);
+  color: var(--color-white);
+}
+
+.login-btn > button:hover {
+  border: 0.1rem solid var(--primary-color);
+  background-color: var(--color-white);
+  color: var(--primary-color);
+}
+
+aside > .add-btn {
+  display: flex;
+  justify-content: center;
 }
 
 .add-btn > button {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.add-btn > button:hover {
-  border: 0.1rem solid var(--primary-color);
-  background-color: var(--color-white);
-  color: var(--primary-color);
+  margin: 2rem 0;
+  font-size: 2rem;
+  border: none;
+  color: var(--color-black);
 }
 
 .cards {
   display: grid;
   width: 90%;
   margin: 0 auto;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
 .card {
-  border-left: 0.2rem solid blue;
-  height: 18rem;
-  box-shadow: 0 0 0.5rem 0.4rem rgb(0 0 0 / 6%);
+  height: 20rem;
   border-radius: 2rem;
   padding: 2rem;
   cursor: pointer;
@@ -160,13 +180,12 @@ legend {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease-out;
+  background-color: var(--color-white);
+  transition: transform 200ms ease-in;
 }
 
 .card:hover {
-  border-left: none;
-  box-shadow: 2rem 0.5rem 0.5rem 0.5rem rgba(5, 5, 5, 0.06);
-  border-bottom: 0.4rem solid blue;
+  transform: translateY(-10%);
 }
 
 .card-button {
