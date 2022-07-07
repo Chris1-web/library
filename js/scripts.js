@@ -9,33 +9,58 @@ const bookNumber = document.querySelector("#number-of-pages");
 const bookStatus = document.querySelector("#status");
 const allCards = document.querySelector(".cards");
 const loginButton = document.querySelector(".login");
+const logoutButton = document.querySelector(".logout");
+const profileImage = document.querySelector(".profile-img");
+const userName = document.querySelector(".user-name");
 let book;
 
-loginButton.addEventListener("click", () => {
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth
-    .signInWithPopup(provider)
-    .then((result) => {
-      const credential = result.credential;
+function initFirebaseAuth() {
+  // Listen to auth state changes. called at the buttom at all times
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // if user is available, hide login button and get user details to display
+      userName.textContent = getUserName();
+      profileImage.src = getProfileUrl();
 
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // ...
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      // ...
-    });
-});
+      loginButton.classList.add("hide");
+      logoutButton.classList.remove("hide");
+      userName.classList.remove("hide");
+      profileImage.classList.remove("hide");
+    } else {
+      loginButton.classList.remove("hide");
+      logoutButton.classList.add("hide");
+      userName.classList.add("hide");
+      profileImage.classList.add("hide");
+    }
+  });
+}
+
+initFirebaseAuth();
+
+const getProfileUrl = function () {
+  return auth.currentUser.photoURL;
+};
+
+const getUserName = function () {
+  return auth.currentUser.displayName;
+};
+
+const isUserSignedIn = function () {
+  return !!getAuth().currentUser;
+};
+
+const googleSignIn = function () {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider);
+  initFirebaseAuth();
+};
+
+const googleSignOut = function () {
+  auth.signOut();
+};
+
+loginButton.addEventListener("click", googleSignIn);
+logoutButton.addEventListener("click", googleSignOut);
 
 const showAddNewBookForm = () => {
   overlay.classList.toggle("open");
