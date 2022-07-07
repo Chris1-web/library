@@ -17,23 +17,22 @@ loginButton.addEventListener("click", () => {
   auth
     .signInWithPopup(provider)
     .then((result) => {
-      /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
+      const credential = result.credential;
 
       // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = credential.accessToken;
+      const token = credential.accessToken;
       // The signed-in user info.
-      var user = result.user;
+      const user = result.user;
       // ...
     })
     .catch((error) => {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      const errorCode = error.code;
+      const errorMessage = error.message;
       // The email of the user's account used.
-      var email = error.email;
+      const email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      const credential = error.credential;
       // ...
     });
 });

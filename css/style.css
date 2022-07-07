@@ -134,12 +134,28 @@ legend {
   border-bottom: 5px solid var(--secondary-color);
 }
 
-.login-btn > button {
+.nav img {
+  width: 5rem;
+  height: auto;
+}
+
+.right-side-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.login-btn > button,
+.logout-btn > button {
   padding: 1rem 1.5rem;
   border: none;
   border-radius: 2rem;
   background-color: var(--primary-color);
   color: var(--color-white);
+}
+
+.logout-btn > button {
+  background-color: var(--color-danger);
 }
 
 .login-btn > button:hover {
@@ -215,4 +231,8 @@ input:focus {
 
 ::placeholder {
   color: black;
+}
+
+.hide {
+  display: none;
 }
