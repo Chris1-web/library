@@ -73,7 +73,6 @@ const saveBookToDB = function (e) {
 };
 
 const updateBookInDB = async function (bookTitle, e) {
-  console.log("update book in database");
   //   const washingtonRef = db.collection("books").doc("DC");
   const selectedBook = db
     .collection("books")
@@ -116,7 +115,6 @@ const loadBooks = function () {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           const book = change.doc.data();
-          console.log(book);
           loader.classList.add("hide");
           displayCardFromDB(book);
         }
