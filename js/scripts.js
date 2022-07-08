@@ -73,7 +73,6 @@ const saveBookToDB = function (e) {
   let pages = bookNumber.value;
   let status = bookStatus.value;
   book = createBookObject(title, author, pages, status);
-  console.log(book);
   db.collection("books").add({
     owner: auth.currentUser.uid,
     title: book.title,
@@ -84,6 +83,25 @@ const saveBookToDB = function (e) {
   clearForm();
   showAddNewBookForm();
   loadBooks();
+  const cardsContainer = document.querySelector(".cards");
+  cardsContainer.textContent = "";
+};
+
+const displayCardFromDB = function (book) {
+  const cardsContainer = document.querySelector(".cards");
+  const html = ` 
+      <div class="card">
+        <h1 class="card-title">${book.title}</h1>
+        <p class="card-author">${book.author}</p>
+        <div class="card-button">
+          <button class="readBtn">${
+            book.hasRead === "Yes" ? "Read" : "Not Read"
+          }</button>
+          <button class="removeBtn">Remove</button>
+        </div>
+      </div>
+    `;
+  cardsContainer.insertAdjacentHTML("beforeend", html);
 };
 
 const loadBooks = function () {
@@ -92,10 +110,7 @@ const loadBooks = function () {
     .onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          console.log("New city: ", change.doc.data());
-        }
-        if (change.type === "modified") {
-          console.log("Modified city: ", change.doc.data());
+          displayCardFromDB(change.doc.data());
         }
         if (change.type === "removed") {
           console.log("Removed city: ", change.doc.data());
