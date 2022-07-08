@@ -63,16 +63,16 @@
             <li>LIBRARY</li>
             <div class="right-side-nav">
               <li class="login-btn">
-                <button class="login">LOG IN</button>
+                <button class="login hide">LOG IN</button>
               </li>
               <li>
-                <img src=""  class="profile-img">  
+                <img src=""  class="profile-img hide">  
               </li>
               <li>
-                <p class="user-name"></p>
+                <p class="user-name hide"></p>
               </li>
               <li class="logout-btn">
-                <button class="logout">LOG OUT</button>
+                <button class="logout hide">LOG OUT</button>
               </li>
             </div>
           </ul>
@@ -88,6 +88,10 @@
               </button>
             </li>
         </aside>
+        
+        <div class="loader-container">
+          <div class="loader"></div>
+        </div>
 
         <main class="cards">
           <!-- cards created through JavaScript are inserted here -->
@@ -99,7 +103,8 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script defer src="./js/init-firebase.js"></script>
-    <script src="./js/scripts.js" defer></script>
+    <script defer src="./js/firebaseFunctions.js"></script>
+    <script defer src="./js/scripts.js"></script>
   </body>
 </html>
 
