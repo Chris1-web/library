@@ -26,6 +26,7 @@ function initFirebaseAuth() {
       profileImage.classList.remove("hide");
       logoutButton.classList.remove("hide");
       loginButton.classList.add("hide");
+      loadBooks();
     } else {
       loginButton.classList.remove("hide");
       logoutButton.classList.add("hide");
@@ -45,7 +46,15 @@ const getUserName = function () {
 };
 
 const isUserSignedIn = function () {
-  return !!getAuth().currentUser;
+  return !!auth.currentUser;
+};
+
+const checkSignedIn = function (e) {
+  e.preventDefault();
+  if (isUserSignedIn()) {
+    return true;
+  }
+  return false;
 };
 
 const googleSignIn = async function () {
@@ -56,6 +65,43 @@ const googleSignIn = async function () {
 
 const googleSignOut = function () {
   auth.signOut();
+};
+
+const saveBookToDB = function (e) {
+  let title = bookTitle.value;
+  let author = bookAuthor.value;
+  let pages = bookNumber.value;
+  let status = bookStatus.value;
+  book = createBookObject(title, author, pages, status);
+  console.log(book);
+  db.collection("books").add({
+    owner: auth.currentUser.uid,
+    title: book.title,
+    author: book.author,
+    pagesNum: book.pagesNum,
+    hasRead: book.hasRead,
+  });
+  clearForm();
+  showAddNewBookForm();
+  loadBooks();
+};
+
+const loadBooks = function () {
+  db.collection("books")
+    .where("owner", "==", auth.currentUser.uid)
+    .onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log("New city: ", change.doc.data());
+        }
+        if (change.type === "modified") {
+          console.log("Modified city: ", change.doc.data());
+        }
+        if (change.type === "removed") {
+          console.log("Removed city: ", change.doc.data());
+        }
+      });
+    });
 };
 
 loginButton.addEventListener("click", googleSignIn);
@@ -236,7 +282,11 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
     return;
   }
-  submitLibrary(e);
+  if (checkSignedIn(e)) {
+    saveBookToDB(e);
+  } else {
+    submitLibrary(e);
+  }
   clearAllErrorMessage();
 });
 
