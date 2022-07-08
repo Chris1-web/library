@@ -110,12 +110,18 @@ const loadBooks = function () {
     .onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          const message = change.doc.data();
-          console.log(message);
-          displayCardFromDB(message);
+          const book = change.doc.data();
+          console.log(book);
+          displayCardFromDB(book);
         }
         if (change.type === "removed") {
-          console.log("Removed city: ", change.doc.data());
+          const book = change.doc.data();
+          // search all h1 elements and remove the clicked one
+          document.querySelectorAll("h1").forEach(function (element) {
+            if (element.textContent === book.title) {
+              element.closest(".card").remove();
+            }
+          });
         }
       });
     });
@@ -225,8 +231,6 @@ const removeBookFromDB = function (e, bookTitle) {
     querySnapshot.forEach(function (doc) {
       doc.ref.delete();
     });
-    // remove from screen
-    e.target.closest(".card").remove();
   });
 };
 
