@@ -117,7 +117,7 @@ const removeBook = (e) => {
 
   // if user is signed in, remove from the database
   if (checkSignedIn(e)) {
-    removeBookFromDB(e, curTitle);
+    removeBookFromDB(curTitle);
   } else {
     const getCardIndex = myLibrary.findIndex((book) => {
       return book.title === curTitle && book.author === curAuthor;
@@ -134,11 +134,16 @@ allCards.addEventListener("click", (e) => {
   if (e.target.classList.contains("readBtn")) {
     const currentTitle = getCurrentCardTitle(e);
     const currentAuthor = getCurrentCardAuthor(e);
+    // if user is signed in, update book in the server
+    if (checkSignedIn(e)) {
+      updateBookInDB(currentTitle, e);
+      return;
+    }
     const currentBook = myLibrary.filter(function (curBook) {
       return curBook.title === currentTitle && curBook.author === currentAuthor;
     });
     currentBook[0].changeStatus(e);
-    return;
+    // return;
   }
   //else if it is remove button, remove card element
   else if (e.target.classList.contains("removeBtn")) {

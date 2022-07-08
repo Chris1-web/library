@@ -72,6 +72,26 @@ const saveBookToDB = function (e) {
   showAddNewBookForm();
 };
 
+const updateBookInDB = async function (bookTitle, e) {
+  console.log("update book in database");
+  //   const washingtonRef = db.collection("books").doc("DC");
+  const selectedBook = db
+    .collection("books")
+    .where("owner", "==", auth.currentUser.uid)
+    .where("title", "==", bookTitle);
+  // change the book's current status, if it is read change to not read and vice versa
+  const changeCurrentStatus = e.target.textContent === "Read" ? "No" : "Yes";
+  //   change text content
+  e.target.textContent = changeCurrentStatus === "Yes" ? "Read" : "Not Read";
+  selectedBook.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      doc.ref.update({
+        hasRead: changeCurrentStatus,
+      });
+    });
+  });
+};
+
 const displayCardFromDB = function (book) {
   const cardsContainer = document.querySelector(".cards");
   const html = ` 
@@ -113,7 +133,7 @@ const loadBooks = function () {
     });
 };
 
-const removeBookFromDB = function (e, bookTitle) {
+const removeBookFromDB = function (bookTitle) {
   const selectedBook = db
     .collection("books")
     .where("owner", "==", auth.currentUser.uid)
