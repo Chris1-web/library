@@ -60,11 +60,14 @@ const checkSignedIn = function (e) {
 const googleSignIn = async function () {
   const provider = new firebase.auth.GoogleAuthProvider();
   await auth.signInWithPopup(provider);
-  initFirebaseAuth();
+  const cardsContainer = document.querySelector(".cards");
+  cardsContainer.textContent = "";
 };
 
 const googleSignOut = function () {
   auth.signOut();
+  const cardsContainer = document.querySelector(".cards");
+  cardsContainer.textContent = "";
 };
 
 const saveBookToDB = function (e) {
@@ -82,9 +85,6 @@ const saveBookToDB = function (e) {
   });
   clearForm();
   showAddNewBookForm();
-  loadBooks();
-  const cardsContainer = document.querySelector(".cards");
-  cardsContainer.textContent = "";
 };
 
 const displayCardFromDB = function (book) {
@@ -110,7 +110,9 @@ const loadBooks = function () {
     .onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          displayCardFromDB(change.doc.data());
+          const message = change.doc.data();
+          console.log(message);
+          displayCardFromDB(message);
         }
         if (change.type === "removed") {
           console.log("Removed city: ", change.doc.data());
@@ -214,16 +216,35 @@ const getCurrentCardAuthor = function (e) {
   return cardAuthorText;
 };
 
+const removeBookFromDB = function (e, bookTitle) {
+  const selectedBook = db
+    .collection("books")
+    .where("owner", "==", auth.currentUser.uid)
+    .where("title", "==", bookTitle);
+  selectedBook.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      doc.ref.delete();
+    });
+    // remove from screen
+    e.target.closest(".card").remove();
+  });
+};
+
 const removeBook = (e) => {
   // get current clicked card name and author and find its index in the myLibrary array
   const curTitle = getCurrentCardTitle(e);
   const curAuthor = getCurrentCardAuthor(e);
-  const getCardIndex = myLibrary.findIndex((book) => {
-    return book.title === curTitle && book.author === curAuthor;
-  });
-  // remove the card permernently from MyLibrary array
-  myLibrary.splice(getCardIndex);
-  e.target.closest(".card").remove();
+
+  if (checkSignedIn(e)) {
+    removeBookFromDB(e, curTitle);
+  } else {
+    const getCardIndex = myLibrary.findIndex((book) => {
+      return book.title === curTitle && book.author === curAuthor;
+    });
+    // remove the card permernently from MyLibrary array
+    myLibrary.splice(getCardIndex);
+    e.target.closest(".card").remove();
+  }
 };
 
 // if card element is clicked
