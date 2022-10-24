@@ -1,0 +1,28 @@
+@media (max-width: 880px) {
+  .add-a-new-book-form.open {
+    top: 0%;
+  }
+  .nav {
+    font-size: 2.3rem;
+    padding: 0.5rem;
+  }
+  .nav li.logo {
+    padding-left: 0;
+  }
+  .right-side-nav {
+    gap: 0.1rem;
+  }
+
+  .logout-btn > button {
+    padding: 0.5rem 1rem;
+  }
+  p.user-name {
+    text-align: center;
+  }
+}
+
+@media (max-width: 555px) {
+  .add-a-new-book-form.open {
+    top: 10%;
+  }
+}

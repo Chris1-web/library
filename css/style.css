@@ -54,12 +54,13 @@ legend {
 .add-a-new-book-form.open {
   display: block;
   position: absolute;
-  left: 20%;
-  transform: translate(50%, 35%);
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 30%);
   border: 2px solid var(--secondary-color);
   border-radius: 2rem;
   padding: 2rem;
-  width: 30vw;
+  min-width: 35vw;
 }
 
 .open-form {
@@ -113,13 +114,14 @@ legend {
 .top-layer-form {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .closeBtn {
   display: block;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem;
   border: none;
-  border-radius: 2rem;
+  border-radius: 50%;
   background-color: var(--color-danger);
   color: var(--color-white);
 }
@@ -132,6 +134,10 @@ legend {
   padding: 2rem;
   background-color: white;
   border-bottom: 5px solid var(--secondary-color);
+}
+
+.nav li.logo {
+  padding-left: 3rem;
 }
 
 .nav img {
@@ -183,7 +189,8 @@ aside > .add-btn {
   display: grid;
   width: 90%;
   margin: 0 auto;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
